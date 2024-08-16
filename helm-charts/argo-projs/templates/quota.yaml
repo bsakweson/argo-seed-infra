@@ -1,0 +1,12 @@
+{{- $namespace := ternary .Values.namespace.name .Values.namespace.existingNamespace ( eq .Values.namespace.existingNamespace "" ) -}}
+{{- if not ( .Values.quota.existingQuota ) }}
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ $namespace }}
+  namespace: {{ $namespace }}
+spec:
+  hard:
+    limits.cpu: {{ .Values.quota.cpu | quote }}
+    limits.memory: {{ .Values.quota.memory }}
+{{- end }}

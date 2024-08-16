@@ -1,0 +1,40 @@
+{{- $namespace := ternary .Values.namespace.name .Values.namespace.existingNamespace ( eq .Values.namespace.existingNamespace "" ) -}}
+{{- if not ( .Values.project.existingProject ) }}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ .Values.project.name }}
+  namespace: {{ .Values.project.namespace }}
+  labels:
+    {{- with .Values.project.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  clusterResourceWhitelist:
+    {{- range $k, $v := .Values.project.clusterResourceWhitelist }}
+    - group: "{{ $v.group }}"
+      kind: "{{ $v.kind }}"
+    {{- end }}
+  destinations:
+    {{- range $k, $v := .Values.project.destinations }}
+    - namespace: "{{ $v.namespace }}"
+      name: "{{ $v.name }}"
+      server: "{{ $v.server }}"
+    {{- end }}
+  roles:
+    {{- range $k, $v := .Values.project.roles }}
+    - name: "{{ $v.name }}"
+      groups:
+        {{- range $k, $v := $v.groups }}
+        - "{{ $v }}"
+        {{- end }}
+      policies:
+        {{- range $k, $v := $v.polices }}
+        - "{{ $v }}"
+        {{- end }}
+    {{- end }}
+  sourceRepos:
+    {{- range $k, $v := .Values.project.sourceRepos }}
+    - "{{ $v }}"
+    {{- end }}
+{{- end }}

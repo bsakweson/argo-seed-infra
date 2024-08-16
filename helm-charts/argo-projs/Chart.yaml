@@ -1,0 +1,7 @@
+apiVersion: v2
+name: argo-projs
+description: A Helm chart creates projects and its corresponding resources for argocd
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+icon: http://null

@@ -1,0 +1,17 @@
+{{- $namespace := ternary .Values.namespace.name .Values.namespace.existingNamespace ( eq .Values.namespace.existingNamespace "" ) -}}
+{{- if not ( .Values.serviceAccount.existingServiceAccount ) }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.project.name }}
+  namespace: {{ $namespace }}
+  labels:
+    {{- with .Values.project.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+{{- end }}

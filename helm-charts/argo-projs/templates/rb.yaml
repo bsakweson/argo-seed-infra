@@ -1,0 +1,16 @@
+{{- $namespace := ternary .Values.namespace.name .Values.namespace.existingNamespace ( eq .Values.namespace.existingNamespace "" ) -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.project.name }}-admin-reader
+  namespace: {{ $namespace }}
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  {{- range $k, $v := .Values.rolebinding.subjects }}
+  - apiGroup: {{ $v.apiGroup }}
+    kind: {{ $v.kind }}
+    name: {{ $v.name }}
+  {{- end }}

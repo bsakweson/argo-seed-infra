@@ -1,0 +1,18 @@
+{{- $namespace := ternary .Values.namespace.name .Values.namespace.existingNamespace ( eq .Values.namespace.existingNamespace "" ) -}}
+{{- if not ( .Values.clusterRole.existingClusterRole ) }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.project.name }}
+rules:
+  - apiGroups:
+    - ""
+    resources:
+      {{- range $k, $v := .Values.clusterRole.resources }}
+      - {{ $v }}
+      {{- end }}
+    verbs:
+      {{- range $k, $v := .Values.clusterRole.verbs }}
+      - {{ $v }}
+      {{- end }}
+{{- end }}

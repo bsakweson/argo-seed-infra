@@ -1,0 +1,69 @@
+nameOverride:
+# targeted argocd instance
+instance:
+  name: argocd
+# project destination namespace
+namespace:
+  existingNamespace: ""
+  name: sample
+  labels:
+    argocd.argoproj.io/managed-by: argocd
+
+project:
+  name: sample
+  existingProject: ""
+  # target argocd namespace where this project is installed
+  namespace: argocd
+  labels:
+    app.kubernetes.io/instance: argocd
+    argocd.argoproj.io/managed-by: argocd
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  destinations:
+    - name: sample
+      namespace: sample
+      server: https://kubernetes.default.svc
+  roles:
+    - name: admin
+      groups:
+        - it
+      policies:
+        - p, proj:sample:admin, applications, *, sample/*, allow
+  sourceRepos:
+    - https://null
+
+quota:
+  existingQuota: ""
+  cpu: 4
+  memory: 4Gi
+
+clusterRole:
+  existingClusterRole: ""
+  resources:
+    - bindings
+    - componentstatuses
+    - configmaps
+    - endpoints
+    - events
+    - limitranges
+  verbs:
+    - get
+    - list
+    - watch 
+    - create 
+    - update
+    - patch
+    - delete
+
+serviceAccount:
+  automount: true
+  annotations: {}
+  existingServiceAccount: ""
+
+rolebinding:
+  subjects:
+    - apiGroups: rbac.authorization.k8s.io
+      kind: Group
+      name: it
+extraObjects: []

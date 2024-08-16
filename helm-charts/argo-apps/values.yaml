@@ -1,0 +1,40 @@
+name: sample
+namespace: argocd
+project:
+  name: sample
+labels:
+  app.kubernetes.io/instance: argocd
+  argocd.argoproj.io/managed-by: argocd
+destination:
+  namespace: sample
+  server: https://kubernetes.default.svc
+
+# if this values is set `path` will be disabled`
+chart: ""
+# release name - must be set if chart is set
+releaseName: ""
+# helm chart parameters
+# parameters:
+#   - name: "service.type"
+#     value:
+parameters: []
+valuesObjects: {}
+values: []
+valueFiles: []
+path: "."
+repoUrl: ""
+targetRevision: ""
+selfHeal: true
+syncOptions:
+  - ServerSideApply=true
+repoSecret:
+  existingSecret: ""
+  data:
+    url: ""
+    type: git
+    insecure: true
+    sshPrivateKey: |-
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      -----END OPENSSH PRIVATE KEY-----
+
+  

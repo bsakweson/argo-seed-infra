@@ -8,16 +8,16 @@ icon: http://null
 dependencies:
   - name: argo-projs
     repository: file://./helm-charts/argo-projs/
-    version: 0.1.0
+    version: 0.1.1
     alias: seedProject
     condition: seedProject.enabled
   - name: argo-apps
     repository: file://./helm-charts/argo-apps/
-    version: 0.1.0
+    version: 0.1.1
     alias: projects
     condition: projects.enabled
   - name: argo-apps
     repository: file://./helm-charts/argo-apps/
-    version: 0.1.0
+    version: 0.1.1
     alias: applications
     condition: applications.enabled

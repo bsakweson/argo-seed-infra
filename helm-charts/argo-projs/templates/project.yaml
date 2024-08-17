@@ -29,7 +29,7 @@ spec:
         - "{{ $v }}"
         {{- end }}
       policies:
-        {{- range $k, $v := $v.polices }}
+        {{- range $k, $v := $v.policies }}
         - "{{ $v }}"
         {{- end }}
     {{- end }}

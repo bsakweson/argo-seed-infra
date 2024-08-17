@@ -1,12 +1,12 @@
 dependencies:
 - name: argo-projs
   repository: file://./helm-charts/argo-projs/
-  version: 0.1.0
+  version: 0.1.1
 - name: argo-apps
   repository: file://./helm-charts/argo-apps/
-  version: 0.1.0
+  version: 0.1.1
 - name: argo-apps
   repository: file://./helm-charts/argo-apps/
-  version: 0.1.0
-digest: sha256:1379d2854f76089fd5876702b8aaa2ab7f541032c77b08e645d7a6470c199de7
-generated: "2024-08-16T17:11:45.694899-04:00"
+  version: 0.1.1
+digest: sha256:ff6e5ca239043fd0742b8742fc8fc0450185d8f66c9808786f054f3ebbfa6178
+generated: "2024-08-17T18:10:03.768289-04:00"

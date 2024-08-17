@@ -31,7 +31,9 @@ seedProject:
       - git@github.com:bsakweson/argo-projs-infra.git
       - git@github.com:bsakweson/argo-apps-infra.git
   quota:
-    namespace: argocd
+    cpu: 4
+    memory: 4Gi
+    existingNamespace: argocd
 
 projects:
   enabled: true
@@ -44,7 +46,7 @@ projects:
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
-  valuesFiles:
+  valueFiles:
     - values.yaml
   repoUrl: git@github.com:bsakweson/argo-projs-infra.git
   targetRevision: develop
@@ -61,7 +63,7 @@ applications:
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
-  valuesFiles:
+  valueFiles:
     - values.yaml
   repoUrl: git@github.com:bsakweson/argo-apps-infra.git
   targetRevision: develop
